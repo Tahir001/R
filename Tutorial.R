@@ -71,6 +71,7 @@ mean(treated$score)
 data(trees)
 x = trees
 summary(x)
+
 #Lets assess the normality of the Trees data set (i.e of Volume, Hieght and Girth)
 par(mfrow=c(3,3))
 #Girth
