@@ -3,7 +3,7 @@
 #rm(list = ls()) //Clears your current working enviroment
 
 #Basic vector operation
-x = c(1,4,6,-8,5)
+x <- c(1,4,6,-8,5)
 mean(x)
 sd(x)
 var(x)
@@ -11,7 +11,7 @@ median(x)
 sum(x)
 prod(x)
 
-y = c(1,2,3,4,5)
+y <- c(1,2,3,4,5)
 x+y
 x*y
 x %*% y # What is this?
@@ -41,14 +41,14 @@ qqnorm(z) #QQ plot
 boxplot(z) 
 
 # Gamma distribution
-g = rgamma(100000, shape=2, scale=0.5) #Shape is called the alpha, and beta is scale
+g <- rgamma(100000, shape=2, scale=0.5) #Shape is called the alpha, and beta is scale
 par(mfrow=c(1,3)) #Showing multiple plots
 hist(g)
 qqnorm(g) #QQ plot
 boxplot(g) 
 
 # T-distribution
-t = rt(100000, df=6)
+t <- rt(100000, df=6)
 par(mfrow=c(1,3))
 hist(t)
 qqnorm(t)
