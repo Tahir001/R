@@ -23,9 +23,14 @@ plot(x,y)
 pnorm(1.96, 0, 1) #Takes in a value and gives you probability
 #Example2) Let X~N(25,100), what is P(10 < X < 30)?
 pnorm(30, mean = 25, sd = 10) - pnorm(10, mean = 25, sd = 10)
+#Note: When you put in the value in pnorm by default, it thinks its the standardized value.
+pnorm(1.96)
+
 #Quantile between two functions
 #Takes probabilties and give u values.  "What are these "values" 
-qnorm(0.975, mean =0, sd =1) 
+qnorm(0.975, mean =0, sd =1)  
+#The default gives you the value from a standard z table 
+qnorm(0.95) 
 
 #The command for Gamma distribution is pnorm(n, mean, standard deviation).
 #X~gamma(5,5), what is P(1 < X < 6)?
