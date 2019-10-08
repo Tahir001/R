@@ -14,7 +14,7 @@ prod(x)
 y <- c(1,2,3,4,5)
 x+y
 x*y
-x %*% y # What is this?
+x %*% y
 plot(x,y)
 
 #Probability distribution
