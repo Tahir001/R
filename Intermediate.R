@@ -3,8 +3,8 @@
 # Note that there is no direct function which calculates just the confidence intervals, hence we will need to create it from scratch for each case.
 # However, we also know that Confidence Intervals are always point_estimate +/- Margin of Error. 
 
-
 ######## CONFIDENCE INTERVALS ########
+# One Sample: Large Samples
 
 #Lets get some data. Here is the salary of 20 data scientists. 
 salary_data = c(117313, 104002, 113038, 101936, 84560, 113136, 80740, 100536, 105052, 87201, 91986, 94868, 90745, 102848, 85927, 112276, 108637, 96818, 92307, 114564, 109714, 108833, 115295, 89279, 81720, 89344, 114426, 90410, 95118, 113382)
@@ -23,7 +23,7 @@ Lower_tail <- x_bar - qnorm(0.975)*(s/sqrt(n))
 Upper_tail <- x_bar + qnorm(0.975)*(s/sqrt(n))
 # Hence we conclude that we are 95% confident that the true average salary of a data scientist is between 96-104k. 
 
-# Confidence Intervals; Small Sample Size 
+# One Sample; Small Sample Size 
 # Suppose now we had data of n = 9. 
 salary_data2 <- c(78000, 90000,75000,117000, 105000, 96000, 89500, 102300, 80000)
 # Find the appropriate statistic, taking into consideration the degrees of freedom (if applicable) for 99% confidence
@@ -45,8 +45,50 @@ Upper_tail
 # Hence we can be 99% confident that the mean salary for a data scientist is between $76,950 to $108,115. 
 # Notice how the interval got bigger as we increased the confidence level. 
 
+# Two Samples; Dependent
+# Usually use this test for when researching same subject over time -> Before & After situations, positive co-relation.
+# Or when looking at cause and effect situations 
+# the test is same as above for one mean, except the difference is:
+d = before - after
+dbar = mean(difference)
+# Construct CI like above, i.e:
+CI <- dbar +/- (z_alpha/2 or t_n-1;alpha/2) * (std/sqrt(n))
+
+#Two Samples; Independent. Case I) Population variance is known
+
+# Calculate the 99% confidence interval for the difference of two means. 
+# Sample 1 
+n_1 <- 100
+xbar <- 58
+sigma_1 <- 10
+
+# Sample 2
+n_2 <- 70
+ybar <- 65
+sigma_2 <-5
+
+# Calculate Standard error
+var1 <- sigma_1/n_1
+var2 <- sigma_2/n_2
+standard_error <- sqrt((var1 + var2))
+
+Lower_tail <- (ybar - xbar) + (qnorm(0.005))*(standard_error)
+Upper_tail <- (ybar - xbar) - (qnorm(0.005))*(standard_error)
+
+#Hence, we conclude that we are 99% confidence that the true difference between engineering and history students scores is between 5 to 11 points. 
+
+#Two Samples; Independent. Case II) Population variance is unknown
+
 
 ######## HYPOTHESIS TESTING ########
+# Recall that a Hypothesis test Always concludes 4 steps: 1) Determine H_0, H_a, 2) Find Test Statistic, 3) Determine the p-value and 4) Conclude. 
+# Lets follow the steps to do different cases in R.
+# I) One mean Large Samples
+# II) One mean Small Samples
+# III) Two samples, mean
+# IV) 
+# V)
+# VI)
 
 # A hypothesis test Always concludes 4 steps: 1) Determine H_0, H_a, 2) Find Test Statistic, 3) Determine the p-value and 4) Conclude. 
 # In R, we modify the steps a bit to 
