@@ -3,7 +3,9 @@
 # Note that there is no direct function which calculates just the confidence intervals, hence we will need to create it from scratch for each case.
 # However, we also know that Confidence Intervals are always point_estimate +/- Margin of Error. 
 
-######## CONFIDENCE INTERVALS ########
+
+#######################################   CONFIDENCE INTERVALS #######################################
+
 # One Sample: Large Samples
 
 #Lets get some data. Here is the salary of 20 data scientists. 
@@ -45,17 +47,16 @@ Upper_tail
 # Hence we can be 99% confident that the mean salary for a data scientist is between $76,950 to $108,115. 
 # Notice how the interval got bigger as we increased the confidence level. 
 
-# Two Samples; Dependent
+# Two Samples; Dependent --> Paired Data, Positive Co-relation, pairs are independent. 
 # Usually use this test for when researching same subject over time -> Before & After situations, positive co-relation.
 # Or when looking at cause and effect situations 
 # the test is same as above for one mean, except the difference is:
-d = before - after
+difference = before - after
 dbar = mean(difference)
 # Construct CI like above, i.e:
 CI <- dbar +/- (z_alpha/2 or t_n-1;alpha/2) * (std/sqrt(n))
 
 #Two Samples; Independent. Case I) Population variance is known
-
 # Calculate the 99% confidence interval for the difference of two means. 
 # Sample 1 
 n_1 <- 100
@@ -68,28 +69,63 @@ ybar <- 65
 sigma_2 <-5
 
 # Calculate Standard error
-var1 <- sigma_1/n_1
-var2 <- sigma_2/n_2
+var1 <- (sigma_1^2)/n_1
+var2 <- (sigma_2^2)/n_2
 standard_error <- sqrt((var1 + var2))
 
 Lower_tail <- (ybar - xbar) + (qnorm(0.005))*(standard_error)
 Upper_tail <- (ybar - xbar) - (qnorm(0.005))*(standard_error)
 
-#Hence, we conclude that we are 99% confidence that the true difference between engineering and history students scores is between 5 to 11 points. 
+#Hence, we conclude that we are 99% confidence that the true difference between engineering and history students scores is between 4 to 10 points. 
 
 #Two Samples; Independent. Case II) Population variance is unknown
+# Question: Estimate the difference in price of apples between NewYork and LA.
+# Lets get some data
+NY_PriceOfApples <- c(3.80, 3.76, 3.87, 3.99, 4.02, 4.25, 4.13, 3.98, 3.99, 3.62) # Sample 1 
+LA_PriceOfApples <- c(3.02, 3.22, 3.24, 3.02, 3.06, 3.15, 3.81, 3.44) # Sample 2
+
+# Calculate the 95% Confidence Interval
+# Sample 1
+xbar <- mean(NY_PriceOfApples)
+n1 <- 10
+s1 <- sd(NY_PriceOfApples)
+
+# Sample 2
+ybar <- mean(LA_PriceOfApples)
+n2 <- 8
+s2 <- sd(LA_PriceOfApples)
+
+# Pooled variance
+PooledVar_numerator <- ((n1-1)*(s1^2)) + ((n2-1)*(s2^2))
+PooledVar_denomenator <- n1 + n2 - 2
+PooledVariance <- PooledVar_numerator/PooledVar_denomenator
+
+# Standard Error
+SE <- sqrt(((PooledVariance/n1) + (PooledVariance/n2)))
+
+# T-value. DOF = n1 + n2 -2 = 16
+t_value <- qt(0.025, 16, lower.tail = FALSE)
+
+# 95% CI
+Lower_tail <- (xbar - ybar) - (t_value*SE)
+Upper_tail <- (xbar - ybar) + (t_value*SE)
+
+# We can see that the mean difference is between (0.47, 0.92). Since the interval does not include 0, we can conclude that we are 
+# 95% confident NewYork Apples are more expensive than the apples in LA
 
 
-######## HYPOTHESIS TESTING ########
+#######################################  HYPOTHESIS TESTING ####################################### 
+
 # Recall that a Hypothesis test Always concludes 4 steps: 1) Determine H_0, H_a, 2) Find Test Statistic, 3) Determine the p-value and 4) Conclude. 
 # Lets follow the steps to do different cases in R.
-# I) One mean Large Samples
+# Hypothesis Testing;  I) One mean Large Samples
+
+
+
 # II) One mean Small Samples
 # III) Two samples, mean
 # IV) 
 # V)
 # VI)
 
-# A hypothesis test Always concludes 4 steps: 1) Determine H_0, H_a, 2) Find Test Statistic, 3) Determine the p-value and 4) Conclude. 
-# In R, we modify the steps a bit to 
 
