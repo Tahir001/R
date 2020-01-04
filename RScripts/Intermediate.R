@@ -1,12 +1,13 @@
 # Intermediate topics in R.
-# Confidence Intervals & Hypothesis Testing 
-# Note that there is no direct function which calculates just the confidence intervals, hence we will need to create it from scratch for each case.
-# However, we also know that Confidence Intervals are always point_estimate +/- Margin of Error.
+# Confidence Intervals & Hypothesis Testing. 
+# These types of tests can be broken down into 6 different types of cases/situations.
+# Single Populaion/One Samples: Large & Small Sample Size for One mean
+# Multiple Populations/ Two Samples: Dependent Samples, and Independent Samples (I) Variance Known, (II) Variance unkown but assumed equal
+# and (III) Variance unknown and not equal. Lets start with our first case. 
 
 
-#######################################   CONFIDENCE INTERVALS #######################################
-
-# One Sample: Large Samples
+# Single Populaion / One Samples
+# Case I. Large Samples
 
 #Lets get some data. Here is the salary of 20 data scientists. 
 salary_data = c(117313, 104002, 113038, 101936, 84560, 113136, 80740, 100536, 105052, 87201, 91986, 94868, 90745, 102848, 85927, 112276, 108637, 96818, 92307, 114564, 109714, 108833, 115295, 89279, 81720, 89344, 114426, 90410, 95118, 113382)
@@ -42,7 +43,10 @@ t.test(salary_data, mu=113000, alternative="less")
 # Upper tailed test
 t.test(salary_data, mu=113000, alternative="greater")
 
-# One Sample; Small Sample Size
+
+# Single Populaion / One Sample
+# Case II. Small Sample Size.
+
 # Suppose now we had data of n = 9. 
 salary_data2 <- c(78000, 90000,75000,117000, 105000, 96000, 89500, 102300, 80000)
 # Find the appropriate statistic, taking into consideration the degrees of freedom (if applicable) for 99% confidence
@@ -77,7 +81,9 @@ open_rate_data <- c(0.26,0.23,0.42,0.49,0.23,0.59,0.29,0.29,0.57,0.40)
 t.test(open_rate_data, mu = 0.40, alternative="greater")
 # 3) Make a decision: Since Pvalue > alpha, we FTR H0. 
 
-# Two Samples; Dependent --> Paired Data, Positive Co-relation, pairs are independent. 
+
+# Multiple Populations
+# Two Samples; Dependent. Here we have paired Data, positive Co-relation, pairs are independent.
 # Usually use this test for when researching same subject over time -> Before & After situations, positive co-relation.
 # Or when looking at cause and effect situations 
 # the test is same as above for one mean, except the difference is:
@@ -117,9 +123,14 @@ SE <- s/(sqrt(n))
 lower_tail <- dbar - qt(0.975,9)*SE
 upper_tail <- dbar + qt(0.975,9)*SE
 
+lower_tail
+upper_tail
 # As we can see, this matches our CI which we got from the built-in t.test command! Nice =). 
 
-#Two Samples; Independent. Case I) Population variance is known
+
+# Multiple Populations
+# Two Samples; Independent. Case I) Population variance is known
+
 # Calculate the 99% confidence interval for the difference of two means. 
 # Sample 1 
 n_1 <- 100
@@ -141,7 +152,10 @@ Upper_tail <- (ybar - xbar) - (qnorm(0.005))*(standard_error)
 
 #Hence, we conclude that we are 99% confidence that the true difference between engineering and history students scores is between 4 to 10 points. 
 
-#Two Samples; Independent. Case II) Population variance is unknown
+
+# Multiple Populations
+#Two Samples; Independent. Case II) Population variance is unknown but assumed equal.
+
 # Question: Estimate the difference in price of apples between NewYork and LA.
 # Lets get some data
 NY_PriceOfApples <- c(3.80, 3.76, 3.87, 3.99, 4.02, 4.25, 4.13, 3.98, 3.99, 3.62) # Sample 1 
@@ -175,25 +189,4 @@ Upper_tail <- (xbar - ybar) + (t_value*SE)
 
 # We can see that the mean difference is between (0.47, 0.92). Since the interval does not include 0, we can conclude that we are 
 # 95% confident NewYork Apples are more expensive than the apples in LA
-
-
-#######################################  HYPOTHESIS TESTING ####################################### 
-
-# Let's shift our focus on Hypothesis testing. The different cases of Hypothesis testing (situations where they are applicable), is the
-# same as thier counter-part confidence Intervals. Hence, the cases we will be covering are: 
-# Single Populaion/One Samples: Large & Small Sample Size for One mean
-# Multiple Populations/ Two Samples: Dependent Samples, and Independent Samples (I) Variance Known, (II) Variance unkown but assumed equal
-# and (III) Variance unknown and not equal. Lets start with our first case. 
-
-# One Sample; Large Sample Size 
-# Lets get some data
-
-
-
-# II) One mean Small Samples
-# III) Two samples, mean
-# IV) 
-# V)
-# VI)
-
 
