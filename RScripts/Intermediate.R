@@ -2,15 +2,19 @@
 # Confidence Intervals & Hypothesis Testing. 
 # These types of tests can be broken down into 6 different types of cases/situations.
 # Single Populaion/One Samples: Large & Small Sample Size for One mean
-# Multiple Populations/ Two Samples: Dependent Samples, and Independent Samples (I) Variance Known, (II) Variance unkown but assumed equal
-# and (III) Variance unknown and not equal. Lets start with our first case. 
+# Multiple Populations/ Two Samples: Dependent Samples, & Independent Samples. 3 Cases: (I) Variance Known, 
+# (II) Variance unkown but assumed equal and (III) Variance unknown and not equal. 
+# Note about Confidence Intervals: There is no direct function which calculates just the confidence intervals, hence we will
+# need to create it from scratch for each case. The good thing is, we know that each CI is always point_estimate +/- Margin of Error. 
 
 
 # Single Populaion / One Samples
 # Case I. Large Samples
 
-#Lets get some data. Here is the salary of 20 data scientists. 
-salary_data = c(117313, 104002, 113038, 101936, 84560, 113136, 80740, 100536, 105052, 87201, 91986, 94868, 90745, 102848, 85927, 112276, 108637, 96818, 92307, 114564, 109714, 108833, 115295, 89279, 81720, 89344, 114426, 90410, 95118, 113382)
+#Lets get some data. Here is the salary of 30 data scientists. 
+salary_data = c(117313, 104002, 113038, 101936, 84560, 113136, 80740, 100536, 105052, 87201, 91986, 94868, 90745, 
+                102848, 85927, 112276, 108637, 96818, 92307, 114564, 109714, 108833, 115295, 89279, 81720, 
+                89344, 114426, 90410, 95118, 113382)
 
 # Calculate a 95% Confidence Interval for the given dataset. 
 # Since n = 30, we can use CLT to approximate this to a normal distribution.
@@ -122,9 +126,6 @@ SE <- s/(sqrt(n))
 # The 95% CI
 lower_tail <- dbar - qt(0.975,9)*SE
 upper_tail <- dbar + qt(0.975,9)*SE
-
-lower_tail
-upper_tail
 # As we can see, this matches our CI which we got from the built-in t.test command! Nice =). 
 
 
@@ -149,8 +150,18 @@ standard_error <- sqrt((var1 + var2))
 
 Lower_tail <- (ybar - xbar) + (qnorm(0.005))*(standard_error)
 Upper_tail <- (ybar - xbar) - (qnorm(0.005))*(standard_error)
-
 #Hence, we conclude that we are 99% confidence that the true difference between engineering and history students scores is between 4 to 10 points. 
+
+# Hypothesis Testing
+# Lets use the same data as the paired example. 
+before <- c(2,1.4,1.3,1.1,1.8,1.6,1.5,0.7,0.9,1.5)
+after <- c(1.7,1.7,1.8,1.3,1.7,1.5,1.6,1.7,1.7,2.4)
+
+# Test with pop var known.
+t.test(before,after, var.equal = F, alternative="greater")
+
+# Note by default, it assumes variance is not equal. Thus the following is same as above.
+t.test(before,after, alternative="greater")
 
 
 # Multiple Populations
@@ -189,4 +200,15 @@ Upper_tail <- (xbar - ybar) + (t_value*SE)
 
 # We can see that the mean difference is between (0.47, 0.92). Since the interval does not include 0, we can conclude that we are 
 # 95% confident NewYork Apples are more expensive than the apples in LA
+
+# Hypothesis Test: Test to see if the true means difference is equal to 0. 
+# Variance is unknown but assumed equal.
+t.test(NY_PriceOfApples,LA_PriceOfApples, var.equal=T)
+
+# Changing confidence levels
+t.test(NY_PriceOfApples,LA_PriceOfApples, conf.level = 0.99, var.equal=T)
+
+# Changing alternative hypothesis
+t.test(NY_PriceOfApples,LA_PriceOfApples, conf.level = 0.99, var.equal=T, alternative="less")
+
 
