@@ -1,3 +1,7 @@
+# Assignment 4 Q2 Soutions
+# University of Toronto | Applied Statistics
+# Tahir Muhammad
+
 # Getting the data and reading it into a table    
 mortgage_url = "https://mcs.utm.utoronto.ca/~nosedal/data/mortgage.txt"
 mortgage_data=read.table(mortgage_url,header=TRUE)
