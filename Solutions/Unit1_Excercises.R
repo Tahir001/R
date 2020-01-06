@@ -1,4 +1,8 @@
-#R Weekly Excerices Unit 1
+# Tahir Muhammad
+# University of Toronto | Applied Statistics
+# Excercise Solutions
+
+#R Weekly Excerices
 #Excercise #1
 tobinQ <- read.csv("/home/tahir/Desktop/STA258/R/tobinQ.csv")
 summary(tobinQ)
@@ -64,3 +68,12 @@ qqline(Q6)
 boxplot(Q6)
 
 #The graphs show non-normal sample. 
+
+#Question 7: Simulate 1000 sample means, where each sample mean is the average of 10 from a Uniform
+#distribution with alpha = 2, beta = 4. i.e U(2,4)
+StimulatingSampleMeans <- c(1:1000)
+for (i in 1:1000){
+  StimulatingSampleMeans[i]<-mean(runif(10,2,4))
+}
+#We can plot the Sampling distribution of the Sample means (there are a 1000 of them)
+plot(density(StimulatingSampleMeans), main = "U(2,4) n=10; 1000 Sample means")
