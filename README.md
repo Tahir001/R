@@ -10,5 +10,4 @@ The following scripts are created for the purpose of teaching R:
 - Advanced.R: Functions, Non-Parametric Statistics and Monte-Carlo Stimulations in R.
 
 # Solutions
-Contains solutions to the assignment and unit 1 excercises for students to compare thier answers to. 
-
+Contains solutions to the assignments done throughout the course, along with the requested excercises. 
