@@ -1,23 +1,58 @@
-#A quick Tutorial on R
+# A Quick Tutorial on R
+# Tahir Muhammad | University of Toronto
+# Introduction to R ! (First Level)
+
 #Get your working directory by getwd(), and set your working directory by setwd("---File Path---) command. 
 #rm(list = ls()) //Clears your current working enviroment
 
-#Basic vector operation
+# Arithmetic Operators
+5+1
+6-9
+11*11
+4/5
+
+# Special numbers
+pi
+exp(1)
+exp(2)
+
+# Basic vector operation
 x <- c(1,4,6,-8,5)
 mean(x)
+var(x)
 sd(x)
 var(x)
 median(x)
 sum(x)
 prod(x)
 
+# Variables
+x <- 12
+# Storing a vector into a variable, y 
 y <- c(1,2,3,4,5)
+# Adding an element to a vector
 x+y
+# Multiplying by a scalar to vector y
 x*y
 x %*% y
-plot(x,y)
 
-#Probability distribution
+# Plotting 
+# Qualitative data: Make a frequency table
+x = c( "yes", "no", "yes", "no", "yes", "yes", "no", "yes", "yes", "no")
+table(x)
+# Partition the space into a matrix (row,columns)
+par(mfrow=c(2,2))
+
+# Bar chart
+barplot(table(x))
+barplot(table(x), col=c("red","blue"))
+
+# Pie chart 
+par(mfrow=c(2,1)) #2 rows, 1 column
+pie(table(x))
+pie(table(x), col=c("green","purple"), main="People who like starbucks at UTM")
+
+# Probability distribution
 #The command for Normal distribution is pnorm(n, mean, standard deviation).
 #Example 1) Probability (Z < 1.96)? #This is the CDF
 pnorm(1.96, 0, 1) #Takes in a value and gives you probability
@@ -26,8 +61,8 @@ pnorm(30, mean = 25, sd = 10) - pnorm(10, mean = 25, sd = 10)
 #Note: When you put in the value in pnorm by default, it thinks its the standardized value.
 pnorm(1.96)
 
-#Quantile between two functions
-#Takes probabilties and give u values.  "What are these "values" 
+#Normal Distribution Quantile
+#Takes probabilties and give u values. i.e: "What is the critical value given this much probability and it's distribution?" 
 qnorm(0.975, mean =0, sd =1)  
 #The default gives you the value from a standard z table 
 qnorm(0.95) 
