@@ -2,13 +2,15 @@
 # Tahir Muhammad | University of Toronto
 # Introduction to R ! (First Level)
 
-#Get your working directory by getwd(), and set your working directory by setwd("---File Path---) command. 
-#rm(list = ls()) //Clears your current working enviroment
+# Get your working directory by getwd(), and set your working directory by setwd("---File Path---) command. 
+# Note the file path should contain foward slashes, i.e / for windows and \ for linux
+# rm(list = ls()) //Clears your current working enviroment
 
 # Arithmetic Operators
 5+1
 6-9
 11*11
+7^8
 4/5
 
 # Special numbers
@@ -16,8 +18,25 @@ pi
 exp(1)
 exp(2)
 
+# Variables
+a <- 3
+b <- 5
+a*b
+# Bedmas still applies
+2*a-b
+# Storing a vector into a variable, y 
+y <- c(1,2,3,4,5)
+
 # Basic vector operation
 x <- c(1,4,6,-8,5)
+# Adding an element to a vector
+x+y
+# Multiplying by a scalar to vector y
+x*y
+# 
+x %*% y
+
+# Methods on vectors
 mean(x)
 var(x)
 sd(x)
@@ -25,16 +44,6 @@ var(x)
 median(x)
 sum(x)
 prod(x)
-
-# Variables
-x <- 12
-# Storing a vector into a variable, y 
-y <- c(1,2,3,4,5)
-# Adding an element to a vector
-x+y
-# Multiplying by a scalar to vector y
-x*y
-x %*% y
 
 # Plotting 
 # Qualitative data: Make a frequency table
@@ -93,6 +102,20 @@ par(mfrow=c(1,3))
 hist(t)
 qqnorm(t)
 boxplot(t)
+
+# Entering in data
+mydata <- c(74,12,654,12341, 32, 99, 1000)
+# Can preform all kinds of descriptive statistics
+min(mydata)
+max(mydata)
+sum(mydata)
+var(mydata)
+sd(mydata)
+median(mydata)
+sort(mydata) # Sorts the vector
+quantile(mydata) # Gives you all the quantiles
+# Summary of the vector: # min, lower hinge, Median, upper hinge, max 
+fivenum(mydata) # min, lower hinge, Median, upper hinge, max 
 
 # Importing and Reading CSV files
 reading = read.csv("/home/tahir/Downloads/reading.csv", header = TRUE) 
