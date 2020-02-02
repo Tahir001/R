@@ -1,5 +1,9 @@
-# Intermediate topics in R.
-# Confidence Intervals & Hypothesis Testing. 
+# Tahir Muhammad | University of Toronto
+# Intermediate Topics in R: Confidence Intervals & Hypothesis Testing, One-Way & Two-way Anova, and Regression. 
+
+###################################################################
+####### PART 1: Hypotehsis Testing and Confidence Intervals #######
+###################################################################
 # These types of tests can be broken down into 6 different types of cases/situations.
 # Single Populaion/One Samples: Large & Small Sample Size for One mean
 # Multiple Populations/ Two Samples: Dependent Samples, & Independent Samples. 3 Cases: (I) Variance Known, 
@@ -73,7 +77,6 @@ Upper_tail
 # Notice how the interval got bigger as we increased the confidence level. 
 
 # Hypothesis Test
-
 # Question: Estimate if the email open rate of one of our firm's competitor is above your company's. 
 # Open rate data for a competitior firm
 open_rate_data <- c(0.26,0.23,0.42,0.49,0.23,0.59,0.29,0.29,0.57,0.40)
@@ -130,7 +133,7 @@ upper_tail <- dbar + qt(0.975,9)*SE
 
 
 # Multiple Populations
-# Two Samples; Independent. Case I) Population variance is known
+# Two Samples; Independent. Case I) Population variance is unknown, and Variance NOT equal. 
 
 # Calculate the 99% confidence interval for the difference of two means. 
 # Sample 1 
@@ -153,11 +156,12 @@ Upper_tail <- (ybar - xbar) - (qnorm(0.005))*(standard_error)
 #Hence, we conclude that we are 99% confidence that the true difference between engineering and history students scores is between 4 to 10 points. 
 
 # Hypothesis Testing
+# Welch Two Sample t-test
 # Lets use the same data as the paired example. 
 before <- c(2,1.4,1.3,1.1,1.8,1.6,1.5,0.7,0.9,1.5)
 after <- c(1.7,1.7,1.8,1.3,1.7,1.5,1.6,1.7,1.7,2.4)
 
-# Test with pop var known.
+# Test with pop var known
 t.test(before,after, var.equal = F, alternative="greater")
 
 # Note by default, it assumes variance is not equal. Thus the following is same as above.
@@ -211,4 +215,13 @@ t.test(NY_PriceOfApples,LA_PriceOfApples, conf.level = 0.99, var.equal=T)
 # Changing alternative hypothesis
 t.test(NY_PriceOfApples,LA_PriceOfApples, conf.level = 0.99, var.equal=T, alternative="less")
 
+###########################################
+####### PART 2: One & Two way Anova #######
+###########################################
+
+
+
+####################################################
+####### PART 3: Linear & Multiple Regression #######
+####################################################
 
