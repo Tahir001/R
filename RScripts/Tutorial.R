@@ -140,11 +140,13 @@ par(mfrow=c(3,3))
 #Girth
 hist(x$Girth)
 qqnorm(x$Girth)
+qqline(x$Girth,col=4)
 boxplot(x$Girth)
 
 # Volume
 hist(x$Height)
 qqnorm(x$Height)
+qqline(x$Height,col=2)
 boxplot(x$Height)
 
 #Hieght
