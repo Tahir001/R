@@ -33,8 +33,21 @@ u <- (r+0.5)/d
 hist(u)
 hist(r)
 
+# To use R's built in commands, we can just do:
+runif(n=1000,min=0,max=1)
+
 # Inverse Transformation Method.
-# Given a uniform(0,1), can generate any distribution
+# Given a density function, can generate it's  distribution. 
+# How? For Continous Distributions:
+#   i) Generate a random variable from U(0,1)
+#   ii) Deliver x = Fx^-1 (u) 
+
+# Example: Find the distribution of 3x^2
+n = 1000
+u <- runif(n,0,1)
+for i in n{
+  u 
+}
 
 
 
