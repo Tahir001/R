@@ -42,12 +42,19 @@ runif(n=1000,min=0,max=1)
 #   i) Generate a random variable from U(0,1)
 #   ii) Deliver x = Fx^-1 (u) 
 
-# Example: Find the distribution of 3x^2
+# Example: Find the distribution of f(x) = 3x^2, where 0 < x < 1
 n = 1000
 u <- runif(n,0,1)
-for i in n{
-  u 
-}
+x <- u^(1/3)
+hist(x, prob=TRUE, main = bquote(f(x) == 3*x^2), col="green")
+# Sample
+y <- seq(0, 1, .01)
+# Density Curve
+lines(y, 3*y^2, col="black") 
+
+# Inverse Value Method; Discrete Case: Recursive
+
+
 
 
 
