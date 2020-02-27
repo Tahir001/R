@@ -1,12 +1,8 @@
 # The following R code is for Unit 2 Excercises
 # We do Hypothesis Testing with Regression, Anova, and contrasts. 
 
-
 # Setting directory
 setwd("/home/tahir/Downloads/")
-##################
-### Question 1 ###
-##################
 
 # Read the data in
 farming_data <- read.csv("farmingfertilizerdata.csv")
@@ -35,6 +31,7 @@ anova(reg_model)
 # Conduct mean of each group
 with(farming_data, tapply(y, treatments, mean))
 # Testing all 4 contrasts at the same time
+
 fit <- lm (y ~ x-1 , data=farming_data )
 L <- matrix (c(
   1 , 0 , -1, 0 ,
@@ -44,7 +41,6 @@ L <- matrix (c(
 require( multcomp )
 library( multcomp )
 summary(glht (fit ,L), test=adjusted("none"))
-
 
 
 
