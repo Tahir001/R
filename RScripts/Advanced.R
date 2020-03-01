@@ -1,7 +1,9 @@
 # Tahir Muhammad | University of Toronto
-# Advanced concepts in R: Stimulation, Inverse Transfomation Method, Monte Carlo, and the Apply family of functions. 
+# Advanced concepts in R: Stimulation, Inverse Transfomation Method, Monte Carlo Stimulations, and the Apply family of functions. 
 
-# Stimulating random numbers 
+####################################
+#### Stimulating random numbers ####
+####################################
 # How does a computer stimulate random numbers?
 # Linear Congruential Generators -> uses a mathematical formula, r_i = ar_i + b(mod d)
 seed = 1 # Setting seed to be able to replicate: must be positive
@@ -34,9 +36,12 @@ hist(u)
 hist(r)
 
 # To use R's built in commands, we can just do:
-runif(n=1000,min=0,max=1)
+x <- runif(n=10000,min=0,max=1)
+hist(x)
 
-# Inverse Transformation Method.
+########################################
+#### Inverse Transformation Method ####
+########################################
 # Given a density function, can generate it's  distribution. 
 # How? For Continous Distributions:
 #   i) Generate a random variable from U(0,1)
@@ -53,6 +58,9 @@ y <- seq(0, 1, .01)
 lines(y, 3*y^2, col="black") 
 
 # Inverse Value Method; Discrete Case: Recursive
+
+# Monte Carlo Stimulation
+
 
 
 
