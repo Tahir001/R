@@ -34,6 +34,7 @@ u <- (r+0.5)/d
 # Plot to see that these are unifomaly distributed! -> Our numbers where random on the interval (0,d), or (0,1) for u. 
 hist(u)
 hist(r)
+# The above holds a powerful result. This is one way the r-uniform distribution can be generated in R, under the hood. 
 
 # To use R's built in commands, we can just do:
 x <- runif(n=10000,min=0,max=1)
