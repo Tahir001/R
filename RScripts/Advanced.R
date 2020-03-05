@@ -83,8 +83,49 @@ S <- x1 + x2 + x3
 hist(S) # We can see the resulting density is also normal. 
 
 # Mixtures Example: 
-# To simulate mixtures, we apply the composition technique. It is briefly summarized below.
-# 
+# To simulate mixtures, we apply the composition technique (algorithm). It is briefly summarized below.
+# Suppose you want to simulate from: F(x) = 1/12X1 + 2/12X2 + 3/12X3 + 4/12X4
+# sample intgers 1-4, with each integer having the probability of a weight in the equation above. 
+# generate X1 - X4 from thier corresponding density and compute your equation. 
+
+# Generating corresponding density of X1, X2, X3, X4, X5
+n <- 10000
+X1 <- rgamma(n,1,1)
+X2 <- rnorm(n,0,1)
+X3 <- rbeta(n,1,1)
+X4 <- runif(n,0,1)
+X5 <- rexp(n,1)
+
+# Sample K accordingly. Note that sum of Prob(k1 to k4) = 1. 
+K <- sample(1:5, size=n, replace=TRUE, prob=(1:5)/15)
+
+# We now have a integer of 10,000 K, each sampled based on thier probabilities. 
+# Let's compute the Mixture now
+x <- 0
+i <- 0
+for i in(1:k){
+  if k[i] == 1{
+    x = x + k[i]*X1
+  }
+  if k[i] == 2{
+    x = x + k[i]*X2
+  }
+  if k[i] == 3{
+    x = x + k[i]*X3
+  }
+  if k[i] == 4{
+    x = x + k[i]*X4
+  }
+  if k[i] == 5{
+    x = x + k[i]*X4
+  }
+}
+# We have now computed the density of X, which is a mixture of of gamma, normal, beta, uniform, and exponential densities! 
+hist(x)
+
+
+
+
 
 
 # Monte Carlo Stimulation
