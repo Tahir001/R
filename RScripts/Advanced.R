@@ -1,5 +1,5 @@
 # Tahir Muhammad | University of Toronto
-# Advanced concepts in R: Simulation, Inverse Transformation Method, Acceptance Rejection Method, Monte Carlo Estimation & Transformations
+# Advanced concepts in R: Simulation, Inverse Transformation Method, Acceptance Rejection Method,Transformations & Monte Carlo Estimation
 #    Stimulation of Random Numbers: How do we simulate the uniform distribution
 #    How can we simulate any distribution? Two methods: 
 #    I) Inverse Transfomation Method & II) Acceptance-Rejection Method
@@ -49,7 +49,10 @@ hist(x)
 #### Inverse Transformation Method #####
 ########################################
 # Given a density function, can generate it's  distribution. 
-# How? For Continous Distributions:
+# How? Well, think about how every CDF is between 0,1. This implies that every CDF can be thought of as a Unif(0,1).
+# However, the uniform(0,1) most likely does not look like the density you are trying to generate. Thus, what we do is 
+# We simulate uniform(0,1) (can derive it as we shown above), and then apply the F inverse to get the density x! 
+# Steps:  
 #   i) Generate a random variable from U(0,1)
 #   ii) Deliver x = Fx^-1 (u) 
 
@@ -84,7 +87,7 @@ hist(S) # We can see the resulting density is also normal.
 
 # Mixtures Example: 
 # To simulate mixtures, we apply the composition technique (algorithm). It is briefly summarized below.
-# Suppose you want to simulate from: F(x) = 1/12X1 + 2/12X2 + 3/12X3 + 4/12X4
+# Suppose you want to simulate from: F(x) = (1/15)X1 + (2/15)X2 + (3/15)X3 + (4/15)X4 + (5/15)X5
 # sample intgers 1-4, with each integer having the probability of a weight in the equation above. 
 # generate X1 - X4 from thier corresponding density and compute your equation. 
 
@@ -124,11 +127,11 @@ for i in(1:k){
 hist(x)
 
 
+#########################################
+######## Monte Carlo Stimulation ########
+#########################################
+# Monte Carlo estimation is a way to estimate/solve complex integration problems we are unable to compute/solve otherwise. 
 
-
-
-
-# Monte Carlo Stimulation
 
 
 
