@@ -131,6 +131,38 @@ hist(x)
 ######## Monte Carlo Stimulation ########
 #########################################
 # Monte Carlo estimation is a way to estimate/solve complex integration problems we are unable to compute/solve otherwise. 
+# The generic algorithm always goes something like this: i) Genere x1, x2, ... xn from some distribution. ii) deliver thetahat = E(x)*constants/rvs, etc. 
+# We can do is in 5 ways:
+# 1) Estimate intervals which are bounded by [0,1] by the uniform distribution
+# 2) Transform bounded intervals to be on [0,1] and then use (1)
+# 3) Transform the integral to any PDF, and estimate using that. 
+# 4) Hit or Miss / Indicator functions:  
+# 5) Importance Sampling Method: Multiply your integrand g(x) by a function h(x), which has the following properties: 
+#     a) We know it's density/it'seasy to simulate
+#     b) We choose h(x) to be close as possible as g(x) in order to be computationally efficient 
+
+# Example 1: Approximate the value of:  int(0,pi/3) sin(t) dt, and compare it with the exact value
+n <- 100000
+u <- runif(n,0,(pi/3))
+
+# Compute exact value
+f_x <- function(x){sin(x)}
+theta <- integrate(f_x,0,pi/3)
+
+# Compute estimated value
+theta_hat <- (pi/3)*mean(sin(u))
+theta_sd <- sqrt(var(theta_hat))
+
+# Print out exact and estimated values
+theta
+theta_hat
+
+# Example 2: 
+
+
+
+
+
 
 
 
