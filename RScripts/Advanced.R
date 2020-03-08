@@ -151,11 +151,20 @@ theta <- integrate(f_x,0,pi/3)
 
 # Compute estimated value
 theta_hat <- (pi/3)*mean(sin(u))
-theta_sd <- sqrt(var(theta_hat))
 
 # Print out exact and estimated values
 theta
 theta_hat
+
+# Note that to get the variance of the estimate, we need alot of theta_hats, which in turn will help us estimate the variance.
+# To understand the statement above intuitionally, recall the sampling distribution. 
+y <- replicate(1000, expr = {
+  u <- runif(n,0,(pi/3))
+  theta_hat <- (pi/3)*mean(sin(u))
+})
+mean(y)
+sd(y)
+
 
 # Example 2: 
 
