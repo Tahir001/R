@@ -166,8 +166,21 @@ mean(y)
 sd(y)
 
 
-# Example 2: 
+# Example 2: Write a Monte Carlo function to estimate P(X=1), where X ~ beta density(3,3).
 
+# True value
+theta <- rbeta(1,3,3) 
+
+# Estimate 
+theta_hat <- function(m){
+  n <- m
+  u <- runif(n,0,1)
+  estimate <- 30*mean((u^2)*((1-u)^2))
+  return(estimate)
+}
+theta_hat(1000)
+  
+# Example 3: Demonstrate the hit or miss approach. 
 
 
 
