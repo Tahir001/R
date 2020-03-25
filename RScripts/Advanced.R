@@ -7,7 +7,7 @@
 #    Solving any integration problems: Monte Carlo Estimations 
 
 ####################################
-#### Stimulating random numbers ####
+#### Simulating random numbers #####
 ####################################
 # How does a computer stimulate random numbers?
 # Linear Congruential Generators -> uses a mathematical formula, r_i = ar_i + b(mod d)
