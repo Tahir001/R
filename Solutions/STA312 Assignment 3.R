@@ -15,8 +15,8 @@ curve(pbeta(x,1,1), col = 'black', xlim=c(0,1),lwd=2)
 lines(Fn, verticals = TRUE, do.points = FALSE, col="red", lwd=2)
 title("ECDF vs Beta(1,1) CDF")
 legend(0, 1, legend=c("ECDF", "Beta(1,1)"), lty=c(2,1),col=c("red","black"), cex=0.8)
-
 # Here, we can see that the two distributions are pretty much the same. 
+
 ######################################
 #####  Question 3b, Assignment 3 #####
 #####      Muhammad Tahir       ######
