@@ -1,5 +1,7 @@
-# Tahir Muhammad | Saurabh Sant
-# 1002537613     | 1002537613
+# STA312 | Professor Luai Al Labadi | Project 3
+# BY:
+# Tahir Muhammad | 1002537613
+# Saurabh Sant   | 1002537613
 
 # Set the directory to the data folder
 setwd("/home/tahir/Downloads/")
@@ -16,41 +18,61 @@ attach(data)
 # Make the data into one column
 #library(tidyr)
 # unite(data, remove = FALSE, na.rm = FALSE)
-
 library(dplyr)
-data <- coalesce(V1,V2,V3,V4,V5)
+# Our data
+lifetime <- coalesce(V1,V2,V3,V4,V5)
 
+#########################################
+######        Course: STA312       ######
+###### Final Project: Question 3A  ######
+###### Muhammad Tahir | 1002537613 ######
+###### Sant Saurabh   | 1002434047 ######
+#########################################
 
+# Find E(theta), the expected value
+theta <- mean(lifetime) # This is the point estimate
+print(theta)
 
+# Q: Find the confidence Interval for Theta
+# The confidence interval takes the form
+# thetahat +- criticalValue * se(thetahat). 
+# We don't know the se(thetahat) as it is just one value. 
+# Thus, we resample using bootstrample, and find se(theta).
 
+# seed for replicapability
+set.seed(2020)
 
-# Practice
-LSAT=c(576,635,558,578,666,580,555,661,651,605,653,575,545,572,594)
-GPA=c(3.39,3.30,2.81,3.03,3.44,3.07,3.00,3.43,3.36,3.13,3.12,2.74,2.76,2.8,2.96)
-print(cor(LSAT, GPA))
-#set up the bootstrap
-B <- 10           #number of replicates
-n <- length(LSAT)   #sample size
-R <- numeric(B)     #storage for replicates
-#bootstrap estimate of standard error of R
-for (b in 1:3) {
-  #randomly select the indices
-  i <- sample(1:n, size = n, replace = TRUE)
-  print(i)
-  LSAT.boot <- LSAT[i]       #i is a vector of indices
-  print(LSAT.boot)
-  GPA.boot <-  GPA[i]
-  print(GPA.boot)
-  R[b] <- cor(LSAT.boot, GPA.boot)
-  print(R)
-  print(length(R))
+# Set up the bootstrap
+B <- 1000               # number of replicates
+n <- length(lifetime)   # sample size
+R <- numeric(B)         # storage for replicates
+
+# Bootstrapping Estimate of standard deviation
+for (b in 1:B){
+  i <- sample(1:n, size = n, replace=TRUE)
+  lifetime.boot <- lifetime[i]
+  # Store the mean of each sample
+  R[b] <-mean(lifetime.boot)
 }
-
+# R is a vector of average lifetime for each sample
 print(R)
-cor(LSAT,GPA)
+boostrapped.theta <- mean(R)
+bootstrapped.sd <- sd(R)
+# Print bootstrapped results
+print(c(boostrapped.theta, bootstrapped.sd))
+
+# Now we need  to find the last piece of the confidence interval, the critical value. 
+# For the critical value, we look at our sampling distribution of the thetas and see if it is normal. 
+par(mfrow=c(1,3))
 hist(R)
+qqnorm(R)
+boxplot(R)
 
-#output
-print(se.R <- sd(R))
-hist(R, prob = TRUE)
+# After looking at the plots, we can conclude normality seems to hold. 
+# hence, we can apply CLT and the normal distribution for the critical values. 
 
+Lower_tail <- theta - qnorm(0.975)*(bootstrapped.sd/sqrt(length(lifetime)))
+Upper_tail <- theta + qnorm(0.975)*(bootstrapped.sd/sqrt(length(lifetime)))
+
+# Thus, our 95% CI for theta is: 
+print(c(Lower_tail,Upper_tail))
