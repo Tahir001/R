@@ -22,12 +22,14 @@ library(dplyr)
 # Our data
 lifetime <- coalesce(V1,V2,V3,V4,V5)
 
+
 #########################################
 ######        Course: STA312       ######
 ###### Final Project: Question 3A  ######
 ###### Muhammad Tahir | 1002537613 ######
 ###### Sant Saurabh   | 1002434047 ######
 #########################################
+
 
 # Find E(theta), the expected value
 theta <- mean(lifetime) # This is the point estimate
@@ -76,3 +78,13 @@ Upper_tail <- theta + qnorm(0.975)*(bootstrapped.sd/sqrt(length(lifetime)))
 
 # Thus, our 95% CI for theta is: 
 print(c(Lower_tail,Upper_tail))
+
+
+#########################################
+######        Course: STA312       ######
+###### Final Project: Question 3B  ######
+###### Muhammad Tahir | 1002537613 ######
+###### Sant Saurabh   | 1002434047 ######
+#########################################
+
+
