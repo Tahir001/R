@@ -184,6 +184,45 @@ lower_q <- quantile(R,alpha/2)
 upper_q <- quantile(R, 1 - (alpha/2))
 print((c(lower_q, upper_q)))
 
+#################################################
+############  95% Quantile Estimate  ############
+#################################################
+
+# We are asked to find the bootstrapped 95% Quartile
+# Set up the bootstrap
+B <- 1000               # number of replicates
+n <- length(X)          # sample size
+R <- numeric(B)         # storage for replicates
+
+# Non-Parametric Bootstrapping Estimate of the 95% Quartile
+for (b in 1:B){
+  i <- sample(1:n, size = n, replace=TRUE)
+  X.boot <- X[i]
+  # Store the median of each sample
+  R[b] <- quantile(X.boot, 0.95)
+}
+# R is a vector of 95% quantile estimates lifetime for each sample
+# print(R)
+boostrapped.theta <- quantile(R,0.95)
+# Print bootstrapped results
+print(boostrapped.theta)
+
+# We can see that the sampling distribution of the median is not necessiarly normal.
+# Thus, we use the percentile CI.
+par(mfrow=c(1,3))
+hist(R,breaks=floor(sqrt(B)),freq=F, main="Non-Parametric 95% Quantile Estimate")
+qqnorm(R)
+boxplot(R)
+
+# Thus, to find the percentile confidence interval, we provide the percentile procedure
+# as the sampling distribution is not normal. 
+alpha=0.05
+
+# The percentile CI for Median Sampling distribution
+lower_q <- quantile(R,alpha/2)
+upper_q <- quantile(R, 1 - (alpha/2))
+print((c(lower_q, upper_q)))
+
 
 #########################################
 ######        Course: STA312       ######
@@ -302,7 +341,7 @@ boxplot(boot.par)
 # Do KS Test
 x <- boot.par
 # Standard normal
-y <- rnorm(1000,0,1)
+y <- rnorm(1000)
 ks.test(x, y)
 
 # Pvalue is very low, thus we reject H0 that is from the same distribution and
