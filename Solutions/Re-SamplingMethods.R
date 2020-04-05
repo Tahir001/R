@@ -128,18 +128,18 @@ boxplot(R)
 # as the sampling distribution is not normal. 
 alpha=0.05
 
-# The 95% quantile
+# The 95% quantile for Median
 ninety_five_quantile <- quantile(R, 1-alpha)
 print(ninety_five_quantile)
   
-# The percentile CI
+# The percentile CI for Median Sampling distribution
 lower_q <- quantile(R,alpha/2)
 upper_q <- quantile(R, 1 - (alpha/2))
 print((c(lower_q, upper_q)))
 
-############################################################
-############            KURTOSIS                ############
-############################################################
+####################################
+############  KURTOSIS  ############
+####################################
 
 # The actual kurtosis from the sample (Point estimate)
 n <- length(X)
@@ -175,11 +175,11 @@ boxplot(R)
 # as the sampling distribution is not normal. 
 alpha=0.05
 
-# The 95% quantile
+# The 95% quantile for Kurtosis Sampling distribution
 ninety_five_quantile <- quantile( R, 1-alpha)
 print(ninety_five_quantile)
 
-# The percentile CI
+# The 95% percentile CI
 lower_q <- quantile(R,alpha/2)
 upper_q <- quantile(R, 1 - (alpha/2))
 print((c(lower_q, upper_q)))
@@ -221,7 +221,6 @@ ks.test(X, pexp, rate = 1/lambda.hat)
 qqnorm(X)
 qqline(X)
 
-
 #########################################
 ######        Course: STA312       ######
 ###### Final Project: Question 3D  ######
@@ -229,8 +228,111 @@ qqline(X)
 ###### Sant Saurabh   | 1002434047 ######
 #########################################
 
+# Here, we do a parametric Bootstrap, with exponential density
+# as our parametric distribution, to find the Median & Kurtosis of lifetime. 
+
+# We are asked to find the parametric bootstrapped median.
+# Parametric distribution is the same as non-parametric, except that we sample
+# from the distribution. 
+
+#############################
+####  Parametric Median  ####
+#############################
+
+# Set up the bootstrap
+B <- 1000               # number of replicates
+n <- length(X)          # sample size is 1000
+boot.par <- NULL        
+
+# Parametric Bootstrap Estimate of the Median
+for(i in 1:B){
+  Par.bootstrap <- NULL          # Storage for each sample
+  Par.bootstrap <- rexp(n, rate=lambda)
+  Par.Median <- median(Par.bootstrap)
+  boot.par <- c(boot.par, Par.Median)
+}
+hist(boot.par,breaks=floor(sqrt(B)),freq=F, main="Histogram of Parametric Bootstrapped Median")
+
+###############################
+####  Parametric Kurtosis  ####
+###############################
+
+# Set up the bootstrap
+B <- 1000               # number of replicates
+n <- length(X)          # sample size is 1000
+boot.par <- NULL        
+
+# Parametric Bootstrap Estimate of the Median
+for(i in 1:B){
+  Par.bootstrap <- NULL  # Storage for each sample
+  Par.bootstrap <- rexp(n, rate=lambda)
+  Par.mean <- mean(Par.bootstrap)
+  Par.var <- var(Par.bootstrap)
+  Par.kurtosis <- ( sum((Par.bootstrap - (Par.mean))^4 )/n ) / (Par.var^2)
+  boot.par <- c(boot.par, Par.kurtosis)
+}
+hist(boot.par, breaks=floor(sqrt(B)),freq=F, main="Histogram of Parametric Bootstrapped Kurtosis")
+
+###################################
+####  Parametric 95% Quantile  ####
+###################################
+
+# Set up the bootstrap
+B <- 1000               # number of replicates
+n <- length(X)          # sample size is 1000
+boot.par <- NULL        
+
+# Parametric Bootstrap Estimate of the Median
+for(i in 1:B){
+  Par.bootstrap <- NULL          # Storage for each sample
+  Par.bootstrap <- rexp(n, rate=lambda)
+  Par.Quantile <- quantile(Par.bootstrap, 0.95)
+  boot.par <- c(boot.par, Par.Quantile)
+}
+hist(boot.par, breaks=floor(sqrt(B)),freq=F, main="Histogram of Parametric 95% Quantile")
+
+# The 95% Quantile Estimate is:
+print(quantile(boot.par,0.95))
+
+# The distribution looks approximately normal, thus we quickly check it:
+qqnorm(boot.par)
+hist(boot.par)
+boxplot(boot.par)
+
+# Do KS Test
+x <- boot.par
+# Standard normal
+y <- rnorm(1000,0,1)
+ks.test(x, y)
+
+# Pvalue is very low, thus we reject H0 that is from the same distribution and
+# we cannot assume normality, even though the plots make it appear it is normal. 
+
+# Thus, we provide the 95%  percentile CI
+print(c(quantile(boot.par,0.025), quantile(boot.par,0.975)))
 
 
+#########################################
+######        Course: STA312       ######
+###### Final Project: Question 3E  ######
+###### Muhammad Tahir | 1002537613 ######
+###### Sant Saurabh   | 1002434047 ######
+#########################################
 
+# BOOTSTRAPPED PARAMETRIC VALUES
 
+# BOOTSTRAPPED NON-PARAMETRIC VALUES
+
+# THEORETICAL VALUES
+##############################################
+####  BOOTSTRAPPED NON-PARAMETRIC VALUES  ####
+##############################################
+
+##########################################
+####  T  ####
+##########################################
+
+###################################
+####  Parametric 95% Quantile  ####
+###################################
 
