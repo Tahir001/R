@@ -192,27 +192,34 @@ print((c(lower_q, upper_q)))
 ###### Sant Saurabh   | 1002434047 ######
 #########################################
 
+# To fund a estimator for exponential(lambda), we use the MLE and get it to be 1/xbar
+# Therefore, lambda-hat = 1/x-bar
+
+# The MLE estimator, Lambda-hat
+lambda.hat <- 1/mean(X)
+print(lambda.hat)
+
 # STEP 1) 
 # We look at how our data is distributed 
 hist(X,breaks=floor(sqrt(B)),freq=F)
+
+# and compare it to Real Exponential distribution (PDF), with lambda = 0.1
+Y <- rexp(1000,0.1)
+hist(Y,breaks=floor(sqrt(B)),freq=F, main = "Exponential(0.1) PDF")
+# We can see that they are both very close. 
 
 # ECDF of our data
 Fn <- ecdf(X)
 summary(Fn)
 plot(Fn, xlab = "Sample quantiles from lifetime" , main="Empirical Cumulative Distribution of lifetime, X")
 
-# Real Exponential distribution (PDF)
-hist(Y,breaks=floor(sqrt(B)),freq=F, main = "Exponential(1) PDF")
-
-# If we generate a random sample from exponential, we will see they are very close
-Y <- rexp(1000,1)
-hist(Y,breaks=floor(sqrt(B)),freq=F, main = "Exponential(1) PDF")
-
-# STEP 2) We use Kolomogrov-Smirnov Goodness of Fit Test to confirm our hypothesis
-ks.test(X,pexp,rate = 1/68.80698)
+# STEP 2) We use Kolomogrov-Smirnov Goodness of Fit Test to confirm our hypothesis, testing our data
+# against exponential, where lambda is it's MLE estimate, 1/xbar 
+ks.test(X, pexp, rate = 1/lambda.hat)
 
 # STEP 3) Do a qq plot of the two distributions. 
-qqplot(X,Y)
+qqnorm(X)
+qqline(X)
 
 
 #########################################
