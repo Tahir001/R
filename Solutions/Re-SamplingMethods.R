@@ -156,14 +156,14 @@ R <- numeric(B)         # storage for replicates
 for (b in 1:B){
   i <- sample(1:n, size = n, replace=TRUE)
   X.boot <- X[i]
-  # Store the median of each sample
+  # Store the Kurtosis of each sample
   R[b] <- ( sum((X.boot - mean(X.boot))^4 )/n ) / (var(X.boot)^2)
 }
-# R is a vector of median lifetime for each sample
-# print(R)
-boostrapped.theta <- ( sum((R - mean(R))^4 )/n ) / (var(R)^2)
+# R is a vector of Kurtosis lifetime for each sample
+boostrapped.theta <- mean(R)
 # Print bootstrapped results
 boostrapped.theta
+
 
 # We can see that the sampling distribution of the median is not necessiarly normal.
 par(mfrow=c(1,3))
@@ -198,7 +198,7 @@ R <- numeric(B)         # storage for replicates
 for (b in 1:B){
   i <- sample(1:n, size = n, replace=TRUE)
   X.boot <- X[i]
-  # Store the median of each sample
+  # Store the quantile of each sample
   R[b] <- quantile(X.boot, 0.95)
 }
 # R is a vector of 95% quantile estimates lifetime for each sample
@@ -239,22 +239,24 @@ lambda.hat <- 1/mean(X)
 print(lambda.hat)
 
 # STEP 1) 
-# We look at how our data is distributed 
-hist(X,breaks=floor(sqrt(B)),freq=F)
+# We look at how our data is distributed
+par(mfrow=c(1,1))
+hist(X,breaks=floor(sqrt(B)),freq=F, main="Histogram of Lifetime, X", xlab="lifetime")
 
 # and compare it to Real Exponential distribution (PDF), with lambda = 0.1
-Y <- rexp(1000,0.1)
-hist(Y,breaks=floor(sqrt(B)),freq=F, main = "Exponential(0.1) PDF")
+Y <- rexp(1000,0.01453341)
+hist(Y,breaks=floor(sqrt(B)),freq=F, main = "Histogram of Exponential(1/xbar)",xlab="exponential values")
 # We can see that they are both very close. 
 
 # ECDF of our data
 Fn <- ecdf(X)
 summary(Fn)
+x <- rexp(1000,0.01453341)
 plot(Fn, xlab = "Sample quantiles from lifetime" , main="Empirical Cumulative Distribution of lifetime, X")
 
 # STEP 2) We use Kolomogrov-Smirnov Goodness of Fit Test to confirm our hypothesis, testing our data
 # against exponential, where lambda is it's MLE estimate, 1/xbar 
-ks.test(X, pexp, rate = 1/lambda.hat)
+ks.test(X, pexp, rate = 0.01453341)
 
 # STEP 3) Do a qq plot of the two distributions. 
 qqnorm(X)
@@ -286,11 +288,14 @@ boot.par <- NULL
 # Parametric Bootstrap Estimate of the Median
 for(i in 1:B){
   Par.bootstrap <- NULL          # Storage for each sample
-  Par.bootstrap <- rexp(n, rate=lambda)
+  Par.bootstrap <- rexp(n, rate=0.01453341)
   Par.Median <- median(Par.bootstrap)
   boot.par <- c(boot.par, Par.Median)
 }
 hist(boot.par,breaks=floor(sqrt(B)),freq=F, main="Histogram of Parametric Bootstrapped Median")
+
+# The Parametric Median
+print(median(X))
 
 ###############################
 ####  Parametric Kurtosis  ####
@@ -304,14 +309,24 @@ boot.par <- NULL
 # Parametric Bootstrap Estimate of the Median
 for(i in 1:B){
   Par.bootstrap <- NULL  # Storage for each sample
-  Par.bootstrap <- rexp(n, rate=lambda)
+  Par.bootstrap <- rexp(n, rate=0.01453341)
   Par.mean <- mean(Par.bootstrap)
   Par.var <- var(Par.bootstrap)
   Par.kurtosis <- ( sum((Par.bootstrap - (Par.mean))^4 )/n ) / (Par.var^2)
   boot.par <- c(boot.par, Par.kurtosis)
 }
+# The Parametric Kurtosis
+# we have the array which has the kurtosis for each parametric sample
+# thus to get the parametrized kurtosis, we can just take the average of the array.
+print(mean(boot.par))
+# Or since our data is from the exponential distribution, we can just use that aswell. 
+theta = ( sum((X - mean(X))^4 )/n ) / (var(X)^2)
+print(theta)
+
 hist(boot.par, breaks=floor(sqrt(B)),freq=F, main="Histogram of Parametric Bootstrapped Kurtosis")
 
+# The Parametric Median
+print(median(boot.par))
 ###################################
 ####  Parametric 95% Quantile  ####
 ###################################
@@ -321,17 +336,17 @@ B <- 1000               # number of replicates
 n <- length(X)          # sample size is 1000
 boot.par <- NULL        
 
-# Parametric Bootstrap Estimate of the Median
+# Parametric Bootstrap Estimate of the Quartile
 for(i in 1:B){
   Par.bootstrap <- NULL          # Storage for each sample
-  Par.bootstrap <- rexp(n, rate=lambda)
+  Par.bootstrap <- rexp(n, rate=0.01453341)
   Par.Quantile <- quantile(Par.bootstrap, 0.95)
   boot.par <- c(boot.par, Par.Quantile)
 }
 hist(boot.par, breaks=floor(sqrt(B)),freq=F, main="Histogram of Parametric 95% Quantile")
 
 # The 95% Quantile Estimate is:
-print(quantile(boot.par,0.95))
+print(quantile(X,0.95))
 
 # The distribution looks approximately normal, thus we quickly check it:
 qqnorm(boot.par)
@@ -358,20 +373,20 @@ print(c(quantile(boot.par,0.025), quantile(boot.par,0.975)))
 ###### Sant Saurabh   | 1002434047 ######
 #########################################
 
-# BOOTSTRAPPED PARAMETRIC VALUES
+##############################
+####  THEORETICAL VALUES  ####
+##############################
+# We show how we get these values in our report. 
+x.mean <- 68.807
+x.var <- 4734.4
+x.sd <- sqrt(x.var)
 
-# BOOTSTRAPPED NON-PARAMETRIC VALUES
+# Theoretical CI: (Using CLT)
+Lower_tail <- x.mean - qnorm(0.975)*(x.sd)/sqrt(1000)
+Upper_tail <- x.mean + qnorm(0.975)*(x.sd)/sqrt(1000)
 
-# THEORETICAL VALUES
-##############################################
-####  BOOTSTRAPPED NON-PARAMETRIC VALUES  ####
-##############################################
+print(c(Lower_tail, Upper_tail))
 
-##########################################
-####  T  ####
-##########################################
 
-###################################
-####  Parametric 95% Quantile  ####
-###################################
+# The rest of the values, parametric and non-parametric values are calculated above.
 

@@ -1,0 +1,55 @@
+---
+title: "Machine Learning I -- STA314"
+author: "Tahir Muhammad"
+date: "04/10/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tutorial 1 - KNN
+
+Today we will conduct some basic data analysis on an different methods of Advertising data from a Company X. 
+Afterwards, we will go through the K-Nearest Neighbours Algorithm in R, train the model, and illustrate it's MSE. 
+Let's Get Started! 
+
+```{r}
+ #--------------------------------------------------------------
+ # Data Analysis: loading data sets into R and making plots
+ #--------------------------------------------------------------
+
+# read in the dataset
+getwd()
+df <- read.csv("/home/tahir/Downloads/Advertising.csv")
+# Look at the top few rows
+head(df)
+```
+
+Hi 
+
+```{r}
+ #fix(df) # take a look at data in table form
+# names(df) # names of entries in df
+ #$TV # values of column TV
+ #TV # does not work, not in memory
+ #attach(df) # make elements of res available in workspace
+ #TV # now works
+```
+
+
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
