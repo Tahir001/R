@@ -19,7 +19,7 @@ Let's Get Started!
  #--------------------------------------------------------------
  # Data Analysis: loading data sets into R and making plots
  #--------------------------------------------------------------
-
+# 
 # read in the dataset
 getwd()
 df <- read.csv("/home/tahir/Downloads/Advertising.csv")
