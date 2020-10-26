@@ -1,4 +1,4 @@
-# A Quick Tutorial on R
+## A Quick Tutorial on R
 # Tahir Muhammad | University of Toronto
 # Introduction to R ! (First Level)
 
